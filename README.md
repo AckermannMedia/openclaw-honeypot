@@ -451,12 +451,6 @@ Pipe-delimited for easy parsing. The dashboard reads this format directly.
 - The API key for OpenClaw is auto-generated and shared between dashboard and container via `data/api.key`
 - GeoIP lookups use the free **ip-api.com** service (rate limited, results are cached in memory)
 
----
-
-## Built with AI
-
-This project was built interactively with **Claude Code** (Anthropic's CLI tool) as part of a homelab security setup. The entire codebase — nginx honeypot configs with 30+ realistic trap locations, a Flask dashboard with five separate analytics engines, a fake admin panel with login capture and chatbot, fail2ban integration, Docker deployment, a systemd service, an interactive install script, themed landing page, and the full 23-themed dashboard UI with CRT effects — was developed through conversation.
-
 ## License
 
 [MIT](LICENSE)
