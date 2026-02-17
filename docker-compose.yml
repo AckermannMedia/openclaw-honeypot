@@ -1,3 +1,6 @@
+# OpenClaw fake admin panel — runs in Docker on port 18789.
+# The FNORD-PROXY analytics dashboard (dashboard.py) runs as a
+# systemd service (fnord-proxy.service), NOT in this container.
 services:
   openclaw-honeypot:
     build: .

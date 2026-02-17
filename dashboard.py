@@ -14,10 +14,32 @@ import urllib.request
 
 app = Flask(__name__)
 
-# OpenClaw Honeypot API config
-OPENCLAW_API_URL = os.environ.get("OPENCLAW_API_URL", "http://localhost:18789")
+# --- Config loader (fnord.conf → environment → default) ---
+CONF_FILE = os.path.join(os.path.dirname(os.path.abspath(__file__)), "fnord.conf")
 
-KEY_FILE = os.environ.get('HONEYPOT_KEY_FILE', '/app/data/api.key')
+def load_config():
+    """Load config from fnord.conf if it exists."""
+    cfg = {}
+    if os.path.exists(CONF_FILE):
+        with open(CONF_FILE) as f:
+            for line in f:
+                line = line.strip()
+                if line and not line.startswith("#") and "=" in line:
+                    k, v = line.split("=", 1)
+                    cfg[k.strip()] = v.strip().strip('"').strip("'")
+    return cfg
+
+_cfg = load_config()
+
+OPENCLAW_API_URL = _cfg.get("OPENCLAW_API_URL", os.environ.get("OPENCLAW_API_URL", "http://localhost:18789"))
+KEY_FILE = _cfg.get("OPENCLAW_KEY_FILE", os.environ.get("HONEYPOT_KEY_FILE", "/app/data/api.key"))
+HONEYPOT_LOG = _cfg.get("HONEYPOT_LOG", os.environ.get("FNORD_HONEYPOT_LOG", "/var/log/nginx/honeypot.log"))
+HONEYPOT_LOG_OLD = HONEYPOT_LOG + ".1"
+F2B_DB = _cfg.get("F2B_DB", os.environ.get("FNORD_F2B_DB", "/var/lib/fail2ban/fail2ban.sqlite3"))
+F2B_LOG = _cfg.get("F2B_LOG", os.environ.get("FNORD_F2B_LOG", "/var/log/fail2ban.log"))
+F2B_LOG_OLD = F2B_LOG + ".1"
+BIND_HOST = _cfg.get("BIND_HOST", os.environ.get("FNORD_BIND_HOST", "127.0.0.1"))
+BIND_PORT = int(_cfg.get("BIND_PORT", os.environ.get("FNORD_BIND_PORT", "8888")))
 
 def _load_or_create_key(path):
     """Load API key from file, or generate a new random one."""
@@ -30,12 +52,6 @@ def _load_or_create_key(path):
     return key
 
 OPENCLAW_API_KEY = _load_or_create_key(KEY_FILE)
-
-HONEYPOT_LOG = "/var/log/nginx/honeypot.log"
-HONEYPOT_LOG_OLD = "/var/log/nginx/honeypot.log.1"
-F2B_DB = "/var/lib/fail2ban/fail2ban.sqlite3"
-F2B_LOG = "/var/log/fail2ban.log"
-F2B_LOG_OLD = "/var/log/fail2ban.log.1"
 
 GEOIP_CACHE = {}
 
@@ -1615,4 +1631,4 @@ setInterval(refresh, 30000);
 """
 
 if __name__ == "__main__":
-    app.run(host="100.64.0.1", port=8888, debug=False)
+    app.run(host=BIND_HOST, port=BIND_PORT, debug=False)
