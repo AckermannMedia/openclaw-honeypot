@@ -2,12 +2,26 @@ from flask import Flask, request, render_template, redirect, session, jsonify
 from datetime import datetime
 import json
 import os
+import secrets
 
 app = Flask(__name__)
-app.secret_key = 'honeypot-secret-key-fnord23'
+
+KEY_FILE = os.environ.get('HONEYPOT_KEY_FILE', '/app/data/api.key')
+
+def _load_or_create_key(path):
+    """Load API key from file, or generate a new random one."""
+    os.makedirs(os.path.dirname(path), exist_ok=True)
+    if os.path.exists(path):
+        return open(path).read().strip()
+    key = secrets.token_urlsafe(48)
+    with open(path, 'w') as f:
+        f.write(key)
+    return key
+
+API_SECRET = _load_or_create_key(KEY_FILE)
+app.secret_key = secrets.token_urlsafe(32)
 
 LOG_FILE = '/app/logs/attempts.json'
-API_SECRET = 'fnord23-honeypot-api-key'  # Dein API Key für Dashboard-Zugriff
 
 def log_attempt(event_type, data):
     entry = {

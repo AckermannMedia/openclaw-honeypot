@@ -3,3 +3,5 @@ logs/*.json
 __pycache__/
 *.py[cod]
 .env
+data/
+*.key
