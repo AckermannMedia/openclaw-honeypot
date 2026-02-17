@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% block content %}
+<div style="display:grid;grid-template-columns:240px 1fr;gap:20px;height:calc(100vh - var(--shell-topbar-height) - 56px)">
+    <aside style="background:var(--card);border:1px solid var(--border);border-radius:var(--radius-lg);padding:16px;overflow-y:auto">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px">
+            <span style="font-weight:600;color:var(--text-strong)">Sacred Config</span>
+            <span class="chip chip-warn">FNORD</span>
+        </div>
+        <label class="field" style="margin-bottom:16px"><input type="text" placeholder="Search the mysteries..." style="width:100%"></label>
+        <div style="display:grid;gap:4px">
+            <button class="nav-item active" style="justify-content:flex-start"><span class="nav-item__icon">🔺</span>Pyramid</button>
+            <button class="nav-item" style="justify-content:flex-start"><span class="nav-item__icon">👁️</span>All-Seeing Eye</button>
+            <button class="nav-item" style="justify-content:flex-start"><span class="nav-item__icon">🐙</span>Leviathan</button>
+            <button class="nav-item" style="justify-content:flex-start"><span class="nav-item__icon">💊</span>Matrix Settings</button>
+            <button class="nav-item" style="justify-content:flex-start"><span class="nav-item__icon">🍎</span>Discordian Opts</button>
+            <button class="nav-item" style="justify-content:flex-start"><span class="nav-item__icon">🎭</span>Fnord Control</button>
+        </div>
+        <div style="display:flex;gap:4px;margin-top:16px;padding-top:16px;border-top:1px solid var(--border)">
+            <button class="btn btn--sm" style="flex:1;justify-content:center">Sacred</button>
+            <button class="btn btn--sm" style="flex:1;justify-content:center">Profane</button>
+        </div>
+    </aside>
+    <main style="background:var(--card);border:1px solid var(--border);border-radius:var(--radius-lg);padding:20px;overflow-y:auto">
+        <div class="row space-between" style="margin-bottom:20px">
+            <div class="muted">23 changes pending in the Akashic Records</div>
+            <div class="row">
+                <button class="btn">Reload Reality</button>
+                <button class="btn">Save to Pyramid</button>
+                <button class="btn primary">Immanentize</button>
+            </div>
+        </div>
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:20px">
+            <span style="font-size:24px">🔺</span>
+            <div>
+                <div style="font-size:18px;font-weight:600;color:var(--text-strong)">Pyramid Configuration</div>
+                <div class="muted">Novus Ordo Seclorum. Since 1776.</div>
+            </div>
+        </div>
+        <div class="callout warn" style="margin-bottom:20px">⚠️ WARNING: Modifying these settings may immanentize the Eschaton. The Machine is watching.</div>
+        <div style="display:grid;gap:16px">
+            <label class="field"><span>Pyramid Levels</span><input type="number" value="23"></label>
+            <label class="field"><span>Eye Aperture</span><input type="text" value="ALL_SEEING"></label>
+            <label class="field"><span>Fnord Visibility</span><select><option>Hidden from the unenlightened</option><option>Visible to initiates</option><option>EVERYWHERE</option></select></label>
+            <label class="field"><span>Eschaton Timer (minutes)</span><input type="number" value="23"></label>
+            <label class="field"><span>Reality Tunnel</span><input type="text" value="simulation-alpha-23"></label>
+            <label class="field"><span>Secret Handshake</span><input type="password" value="fnord23kallisti"></label>
+            <label class="field checkbox"><input type="checkbox" checked><span>Enable Law of Fives (2+3=5)</span></label>
+            <label class="field checkbox"><input type="checkbox" checked><span>Hodge/Podge Balance</span></label>
+            <label class="field checkbox"><input type="checkbox"><span>DEBUG: Show fnords to non-initiates</span></label>
+        </div>
+    </main>
+</div>
+{% endblock %}

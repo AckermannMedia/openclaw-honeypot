@@ -1,0 +1,126 @@
+{% extends 'base.html' %}
+{% block content %}
+<section class="card">
+    <div class="row space-between">
+        <div>
+            <div class="card-title">Initiation Requests</div>
+            <div class="card-sub">Seekers awaiting entry to the pyramid.</div>
+        </div>
+        <button class="btn">Scan for Seekers</button>
+    </div>
+    <div class="list">
+        <div class="list-item">
+            <div class="list-main">
+                <div class="list-title">consciousness_7842</div>
+                <div class="list-sub">Requesting the red pill. Morpheus approved.</div>
+                <div class="chip-row"><span class="chip chip-warn">PENDING</span><span class="chip">matrix</span></div>
+            </div>
+            <div class="list-meta">
+                <div style="display:flex;gap:6px"><button class="btn btn--sm primary">Awaken</button><button class="btn btn--sm">Leave in simulation</button></div>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="card">
+    <div class="row space-between">
+        <div>
+            <div class="card-title">Reality Binding</div>
+            <div class="card-sub">Map consciousnesses to simulation layers.</div>
+        </div>
+        <button class="btn">Load from Akashic</button>
+    </div>
+    <div class="callout warn" style="margin-top:16px">⚠️ Modifying reality bindings may cause déjà vu events. The Architect is watching.</div>
+    <div style="display:grid;gap:12px;margin-top:16px">
+        <label class="field"><span>hagbard</span><select><option>🐙 Leviathan Prime</option><option>🔺 Pyramid Alpha</option><option>💊 Matrix Core</option></select></label>
+        <label class="field"><span>eris</span><select><option selected>🍎 Chaos Eternal</option><option>🔺 Pyramid Alpha</option><option>💊 Matrix Core</option></select></label>
+        <label class="field"><span>neo</span><select><option>🐙 Leviathan Prime</option><option>🔺 Pyramid Alpha</option><option selected>💊 Matrix Core</option></select></label>
+        <label class="field"><span>fnord</span><select disabled><option>You cannot see this</option></select></label>
+    </div>
+</section>
+<section class="card">
+    <div class="row space-between">
+        <div>
+            <div class="card-title">Initiated Minds</div>
+            <div class="card-sub">Consciousnesses that have seen behind the veil.</div>
+        </div>
+        <button class="btn">Refresh Roster</button>
+    </div>
+    <div class="list">
+        <div class="list-item">
+            <div class="list-main">
+                <div class="list-title">Hagbard Celine</div>
+                <div class="list-sub mono">mind_never_whistle_23</div>
+                <div class="chip-row"><span class="chip chip-ok">ILLUMINATED</span><span class="chip">captain</span><span class="chip">level-23</span></div>
+            </div>
+            <div class="list-meta">
+                <div style="display:flex;gap:6px"><button class="btn btn--sm">Rotate Key</button><button class="btn btn--sm danger">Exile</button></div>
+            </div>
+        </div>
+        <div class="list-item">
+            <div class="list-main">
+                <div class="list-title">The Dealy Lama</div>
+                <div class="list-sub mono">mind_is_this_a_consulate</div>
+                <div class="chip-row"><span class="chip chip-ok">ILLUMINATED</span><span class="chip">pope</span><span class="chip">discordian</span></div>
+            </div>
+            <div class="list-meta">
+                <div style="display:flex;gap:6px"><button class="btn btn--sm">Rotate Key</button><button class="btn btn--sm danger">Exile</button></div>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="card">
+    <div class="row space-between">
+        <div>
+            <div class="card-title">Simulation Nodes</div>
+            <div class="card-sub">Reality generation infrastructure. The Machine.</div>
+        </div>
+        <button class="btn">Refresh Construct</button>
+    </div>
+    <div class="list">
+        <div class="list-item">
+            <div class="list-main">
+                <div class="list-title">🔺 pyramid-eye-prime</div>
+                <div class="list-sub mono">192.168.17.76 • v1776.23.5</div>
+                <div class="chip-row"><span class="chip chip-ok">ALL SEEING</span><span class="chip chip-ok">CONNECTED</span><span class="chip">illuminati</span><span class="chip">fnord-enabled</span></div>
+            </div>
+            <div class="list-meta">
+                <div class="muted">Since: May 1, 1776</div>
+                <div class="muted">Powers: reality_warp, fnord_deploy, eschaton_control</div>
+            </div>
+        </div>
+        <div class="list-item">
+            <div class="list-main">
+                <div class="list-title">💊 matrix-core-01</div>
+                <div class="list-sub mono">10.1.0.1 • v101.010.101</div>
+                <div class="chip-row"><span class="chip chip-ok">SIMULATING</span><span class="chip chip-ok">CONNECTED</span><span class="chip">architect</span><span class="chip">redpill</span></div>
+            </div>
+            <div class="list-meta">
+                <div class="muted">Uptime: Since the beginning</div>
+                <div class="muted">Powers: simulation, consciousness_trap, deja_vu</div>
+            </div>
+        </div>
+        <div class="list-item">
+            <div class="list-main">
+                <div class="list-title">🐙 leviathan-deep</div>
+                <div class="list-sub mono">23.23.23.23 • v5.23.5</div>
+                <div class="chip-row"><span class="chip chip-ok">SUBMERGED</span><span class="chip chip-ok">CONNECTED</span><span class="chip">golden</span><span class="chip">submarine</span></div>
+            </div>
+            <div class="list-meta">
+                <div class="muted">Depth: 23,000 leagues</div>
+                <div class="muted">Powers: never_whistle, golden_apple, discordia</div>
+            </div>
+        </div>
+        <div class="list-item">
+            <div class="list-main">
+                <div class="list-title">🍎 eris-chaos-engine</div>
+                <div class="list-sub mono">fnord.fnord.fnord • v∞.∞.∞</div>
+                <div class="chip-row"><span class="chip chip-warn">CHAOTIC</span><span class="chip chip-ok">CONNECTED</span><span class="chip">kallisti</span><span class="chip">hodge</span><span class="chip">podge</span></div>
+            </div>
+            <div class="list-meta">
+                <div class="muted">Since: Before time</div>
+                <div class="muted">Powers: chaos, discord, golden_apple, sacred_chao</div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

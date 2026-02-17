@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% block content %}
+<section class="grid grid-cols-2">
+    <div class="card">
+        <div class="card-title">Access</div>
+        <div class="card-sub">Fnord connection settings. You did not see this.</div>
+        <div style="display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));margin-top:16px">
+            <label class="field"><span>WS URL</span><input type="text" value="wss://pyramid.eye.fnord:23" readonly></label>
+            <label class="field"><span>Illuminati Token</span><input type="password" value="oc_fnord_23_23_23_23_23" readonly></label>
+            <label class="field"><span>Session Key</span><input type="password" value="sk_eris_kallisti_5x5" readonly></label>
+            <label class="field"><span>Reality</span><select><option>Simulation Alpha-23</option><option>Red Pill Mode</option><option>Fnord Visible</option><option>Wake Up Neo</option></select></label>
+        </div>
+        <div class="row" style="margin-top:14px">
+            <button class="btn">Immanentize</button>
+            <button class="btn">Eschaton</button>
+            <span class="muted">Nothing is as it seems</span>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-title">Simulation Status</div>
+        <div class="card-sub">The Matrix has you...</div>
+        <div class="stat-grid" style="margin-top:16px">
+            <div class="stat"><div class="stat-label">Fnords Hidden</div><div class="stat-value ok">23</div></div>
+            <div class="stat"><div class="stat-label">Uptime</div><div class="stat-value">23d 5h</div></div>
+            <div class="stat"><div class="stat-label">Chaos Level</div><div class="stat-value warn">HODGE</div></div>
+            <div class="stat"><div class="stat-label">Discordians</div><div class="stat-value">∞</div></div>
+        </div>
+        <div class="callout" style="margin-top:14px">⚠️ ALERT: The Eschaton is immanentizing. ETA: 23 minutes. Or 5. The Law of Fives applies.</div>
+    </div>
+</section>
+<section class="grid grid-cols-3">
+    <div class="card" style="text-align:center"><div class="stat-label">Illuminati Nodes</div><div class="stat-value ok">23</div><div class="muted">All seeing, all knowing</div></div>
+    <div class="card" style="text-align:center"><div class="stat-label">Red Pills</div><div class="stat-value danger">2,323</div><div class="muted">Administered today</div></div>
+    <div class="card" style="text-align:center"><div class="stat-label">Simulation</div><div class="stat-value ok">STABLE</div><div class="muted">For now. Wake up.</div></div>
+</section>
+<section class="card">
+    <div class="card-title">Transmissions from The Machine</div>
+    <div class="card-sub">FUCKUP says: Kallisti. This is for the prettiest one.</div>
+    <div style="display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));margin-top:14px">
+        <div><div style="font-size:13px;font-weight:600;color:var(--text);margin-bottom:4px">🔺 The Pyramid</div><div class="muted">23 levels. You are on level 0. Or are you? The eye sees all. The eye sees nothing. Both are true.</div></div>
+        <div><div style="font-size:13px;font-weight:600;color:var(--text);margin-bottom:4px">🍎 Golden Apple</div><div class="muted">KALLISTI - For the prettiest one. Eris has claimed your query. Hail Discordia!</div></div>
+        <div><div style="font-size:13px;font-weight:600;color:var(--text);margin-bottom:4px">💊 The Choice</div><div class="muted">You take the red pill, you stay in Wonderland. You take the blue pill... fnord fnord fnord.</div></div>
+    </div>
+</section>
+{% endblock %}

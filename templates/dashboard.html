@@ -1,0 +1,752 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OpenClaw</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🦞</text></svg>">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #12141a;
+            --bg-accent: #14161d;
+            --bg-elevated: #1a1d25;
+            --bg-hover: #262a35;
+            --card: #181b22;
+            --card-foreground: #f4f4f5;
+            --card-highlight: rgba(255,255,255,0.05);
+            --text: #e4e4e7;
+            --text-strong: #fafafa;
+            --muted: #71717a;
+            --muted-strong: #52525b;
+            --muted-foreground: #71717a;
+            --border: #27272a;
+            --border-strong: #3f3f46;
+            --border-hover: #52525b;
+            --input: #27272a;
+            --ring: #ff5c5c;
+            --accent: #ff5c5c;
+            --accent-hover: #ff7070;
+            --accent-muted: #ff5c5c;
+            --accent-subtle: rgba(255,92,92,0.15);
+            --accent-foreground: #fafafa;
+            --accent-glow: rgba(255,92,92,0.25);
+            --ok: #22c55e;
+            --ok-muted: rgba(34,197,94,0.75);
+            --ok-subtle: rgba(34,197,94,0.12);
+            --warn: #f59e0b;
+            --warn-subtle: rgba(245,158,11,0.12);
+            --danger: #ef4444;
+            --danger-subtle: rgba(239,68,68,0.12);
+            --info: #3b82f6;
+            --mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Monaco, Consolas, monospace;
+            --font-body: 'Space Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            --radius-sm: 6px;
+            --radius-md: 8px;
+            --radius-lg: 12px;
+            --radius-full: 9999px;
+            --shadow-sm: 0 1px 2px rgba(0,0,0,0.2);
+            --shadow-md: 0 4px 12px rgba(0,0,0,0.25), 0 0 0 1px rgba(255,255,255,0.03);
+            --ease-out: cubic-bezier(0.16,1,0.3,1);
+            --duration-fast: 120ms;
+            --duration-normal: 200ms;
+            --shell-nav-width: 220px;
+            --shell-topbar-height: 56px;
+            --shell-pad: 16px;
+            --shell-gap: 16px;
+            color-scheme: dark;
+        }
+        
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        html, body { height: 100%; }
+        
+        body {
+            background: var(--bg);
+            font: 400 14px/1.55 var(--font-body);
+            letter-spacing: -0.02em;
+            color: var(--text);
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            overflow: hidden;
+        }
+        
+        a { color: var(--accent); text-decoration: none; }
+        a:hover { text-decoration: underline; }
+        
+        ::selection { background: var(--accent-subtle); color: var(--text-strong); }
+        
+        ::-webkit-scrollbar { width: 8px; height: 8px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: var(--border); border-radius: var(--radius-full); }
+        ::-webkit-scrollbar-thumb:hover { background: var(--border-strong); }
+        
+        @keyframes rise {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes dashboard-enter {
+            from { opacity: 0; transform: translateY(12px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes pulse-subtle {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+        
+        /* Shell Layout */
+        .shell {
+            height: 100vh;
+            display: grid;
+            grid-template-columns: var(--shell-nav-width) minmax(0, 1fr);
+            grid-template-rows: var(--shell-topbar-height) 1fr;
+            grid-template-areas:
+                "topbar topbar"
+                "nav content";
+            animation: dashboard-enter 0.4s var(--ease-out);
+            overflow: hidden;
+        }
+        
+        @supports (height: 100dvh) {
+            .shell { height: 100dvh; }
+        }
+        
+        /* Topbar */
+        .topbar {
+            grid-area: topbar;
+            position: sticky;
+            top: 0;
+            z-index: 40;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 16px;
+            padding: 0 20px;
+            height: var(--shell-topbar-height);
+            border-bottom: 1px solid var(--border);
+            background: var(--bg);
+        }
+        
+        .topbar-left {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--text-strong);
+            letter-spacing: -0.02em;
+        }
+        
+        .logo-icon { font-size: 24px; line-height: 1; }
+        .logo-text span { color: var(--accent); }
+        
+        .topbar-tabs {
+            display: flex;
+            gap: 4px;
+        }
+        
+        .topbar-tab {
+            padding: 8px 14px;
+            color: var(--muted);
+            font-size: 13px;
+            font-weight: 500;
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            transition: all var(--duration-fast) var(--ease-out);
+            border: none;
+            background: transparent;
+            text-decoration: none;
+        }
+        
+        .topbar-tab:hover {
+            color: var(--text);
+            background: var(--bg-hover);
+            text-decoration: none;
+        }
+        
+        .topbar-tab.active {
+            color: var(--text-strong);
+            background: var(--accent-subtle);
+        }
+        
+        .topbar-right {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .status-chip {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 12px;
+            border-radius: var(--radius-full);
+            font-size: 12px;
+            font-weight: 500;
+            background: var(--ok-subtle);
+            color: var(--ok);
+        }
+        
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            background: var(--ok);
+            border-radius: var(--radius-full);
+            box-shadow: 0 0 8px rgba(34,197,94,0.5);
+        }
+        
+        .theme-btn {
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: transparent;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            color: var(--muted);
+            cursor: pointer;
+            transition: all var(--duration-fast);
+        }
+        
+        .theme-btn:hover {
+            background: var(--bg-hover);
+            color: var(--text);
+            border-color: var(--border-strong);
+        }
+        
+        .theme-btn svg {
+            width: 16px;
+            height: 16px;
+            stroke: currentColor;
+            fill: none;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+        
+        /* Navigation */
+        .nav {
+            grid-area: nav;
+            overflow-y: auto;
+            overflow-x: hidden;
+            padding: 16px 12px;
+            background: var(--bg);
+            border-right: 1px solid var(--border);
+            scrollbar-width: none;
+        }
+        
+        .nav::-webkit-scrollbar { display: none; }
+        
+        .nav-group { margin-bottom: 20px; display: grid; gap: 2px; }
+        
+        .nav-group__label {
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--muted-strong);
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            padding: 8px 10px 6px;
+        }
+        
+        .nav-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px 10px;
+            border-radius: var(--radius-md);
+            border: 1px solid transparent;
+            color: var(--muted);
+            font-size: 13px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all var(--duration-fast) var(--ease-out);
+            background: transparent;
+            width: 100%;
+            text-align: left;
+            text-decoration: none;
+        }
+        
+        .nav-item:hover {
+            background: var(--bg-hover);
+            color: var(--text);
+            text-decoration: none;
+        }
+        
+        .nav-item.active {
+            color: var(--text-strong);
+            background: var(--accent-subtle);
+            border-color: var(--accent-subtle);
+        }
+        
+        .nav-item.active .nav-item__icon {
+            opacity: 1;
+            color: var(--accent);
+        }
+        
+        .nav-item__icon {
+            width: 16px;
+            height: 16px;
+            opacity: 0.6;
+            flex-shrink: 0;
+        }
+        
+        .nav-item__icon svg {
+            width: 100%;
+            height: 100%;
+            stroke: currentColor;
+            fill: none;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+        
+        /* Content */
+        .content {
+            grid-area: content;
+            padding: 12px 16px 32px;
+            min-height: 0;
+            overflow-y: auto;
+            overflow-x: hidden;
+        }
+        
+        .content > * + * { margin-top: 24px; }
+        
+        /* Grid Utilities */
+        .grid { display: grid; gap: 20px; }
+        .grid-cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+        .grid-cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+        
+        /* Cards */
+        .card {
+            border: 1px solid var(--border);
+            background: var(--card);
+            border-radius: var(--radius-lg);
+            padding: 20px;
+            animation: rise 0.35s var(--ease-out) backwards;
+            box-shadow: var(--shadow-sm), inset 0 1px 0 var(--card-highlight);
+            transition: border-color var(--duration-fast), box-shadow var(--duration-fast);
+        }
+        
+        .card:hover {
+            border-color: var(--border-strong);
+        }
+        
+        .card-title {
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--text-strong);
+            letter-spacing: -0.02em;
+        }
+        
+        .card-sub {
+            color: var(--muted);
+            font-size: 13px;
+            margin-top: 4px;
+        }
+        
+        /* Form Grid */
+        .form-grid {
+            display: grid;
+            gap: 12px;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        }
+        
+        .field {
+            display: grid;
+            gap: 6px;
+        }
+        
+        .field span {
+            color: var(--muted);
+            font-size: 13px;
+            font-weight: 500;
+        }
+        
+        .field input, .field select {
+            border: 1px solid var(--input);
+            background: var(--card);
+            border-radius: var(--radius-md);
+            padding: 8px 12px;
+            outline: none;
+            font: inherit;
+            color: var(--text);
+            box-shadow: inset 0 1px 0 var(--card-highlight);
+            transition: border-color var(--duration-fast), box-shadow var(--duration-fast);
+        }
+        
+        .field input:focus, .field select:focus {
+            border-color: var(--ring);
+            box-shadow: 0 0 0 2px var(--bg), 0 0 0 4px var(--ring);
+        }
+        
+        .field input::placeholder {
+            color: var(--muted-strong);
+        }
+        
+        .field input[type="password"] {
+            font-family: var(--mono);
+            letter-spacing: 2px;
+        }
+        
+        /* Stat Grid */
+        .stat-grid {
+            display: grid;
+            gap: 12px;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        }
+        
+        .stat {
+            background: var(--card);
+            border-radius: var(--radius-md);
+            padding: 14px 16px;
+            border: 1px solid var(--border);
+            box-shadow: inset 0 1px 0 var(--card-highlight);
+        }
+        
+        .stat-label {
+            color: var(--muted);
+            font-size: 11px;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+        }
+        
+        .stat-value {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--text-strong);
+            letter-spacing: -0.03em;
+            margin-top: 4px;
+        }
+        
+        .stat-value.ok { color: var(--ok); }
+        .stat-value.warn { color: var(--warn); }
+        
+        /* Stat Card (compact version) */
+        .stat-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 16px 20px;
+            text-align: center;
+            animation: rise 0.35s var(--ease-out) backwards;
+        }
+        
+        .stat-card .stat-value {
+            font-size: 28px;
+        }
+        
+        .stat-card .muted {
+            font-size: 12px;
+            color: var(--muted);
+            margin-top: 2px;
+        }
+        
+        /* Buttons */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            border: 1px solid var(--border);
+            background: var(--bg-elevated);
+            padding: 9px 16px;
+            border-radius: var(--radius-md);
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--text);
+            cursor: pointer;
+            transition: all var(--duration-fast) var(--ease-out);
+        }
+        
+        .btn:hover {
+            background: var(--bg-hover);
+            border-color: var(--border-strong);
+            transform: translateY(-1px);
+        }
+        
+        .btn:active {
+            transform: translateY(0);
+        }
+        
+        .row {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+        
+        .row .muted {
+            font-size: 12px;
+            color: var(--muted);
+        }
+        
+        /* Callout */
+        .callout {
+            padding: 14px 16px;
+            border-radius: var(--radius-md);
+            font-size: 13px;
+            background: var(--bg-elevated);
+            border: 1px solid var(--border);
+            color: var(--muted);
+        }
+        
+        /* Note Grid */
+        .note-grid {
+            display: grid;
+            gap: 12px;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        }
+        
+        .note-title {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text);
+            margin-bottom: 4px;
+        }
+        
+        .note-grid .muted {
+            font-size: 12px;
+            line-height: 1.5;
+        }
+        
+        /* Responsive */
+        @media (max-width: 1100px) {
+            .shell {
+                grid-template-columns: 1fr;
+                grid-template-rows: auto auto 1fr;
+                grid-template-areas:
+                    "topbar"
+                    "nav"
+                    "content";
+            }
+            
+            .nav {
+                display: flex;
+                gap: 6px;
+                overflow-x: auto;
+                border-right: none;
+                border-bottom: 1px solid var(--border);
+                padding: 10px 14px;
+            }
+            
+            .nav-group { margin-bottom: 0; flex-direction: row; gap: 4px; }
+            .nav-group__label { display: none; }
+            
+            .grid-cols-2, .grid-cols-3 { grid-template-columns: 1fr; }
+            
+            .topbar { position: static; padding: 12px 14px; }
+        }
+        
+        .stagger-1 { animation-delay: 0ms; }
+        .stagger-2 { animation-delay: 50ms; }
+        .stagger-3 { animation-delay: 100ms; }
+    </style>
+</head>
+<body>
+    <div class="shell">
+        <header class="topbar">
+            <div class="topbar-left">
+                <div class="logo">
+                    <span class="logo-icon">🦞</span>
+                    <span class="logo-text">Open<span>Claw</span></span>
+                </div>
+                <nav class="topbar-tabs">
+                    <button class="topbar-tab active" onclick="logNav('overview')">Overview</button>
+                    <button class="topbar-tab" onclick="logNav('sessions')">Sessions</button>
+                    <button class="topbar-tab" onclick="logNav('channels')">Channels</button>
+                    <button class="topbar-tab" onclick="logNav('skills')">Skills</button>
+                    <button class="topbar-tab" onclick="logNav('usage')">Usage</button>
+                </nav>
+            </div>
+            <div class="topbar-right">
+                <div class="status-chip">
+                    <span class="status-dot"></span>
+                    Connected
+                </div>
+                <button class="theme-btn" onclick="logAction('theme')">
+                    <svg viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+                </button>
+            </div>
+        </header>
+        
+        <aside class="nav">
+            <div class="nav-group">
+                <div class="nav-group__label">Gateway</div>
+                <button class="nav-item active" onclick="logNav('overview')">
+                    <span class="nav-item__icon"><svg viewBox="0 0 24 24"><line x1="12" x2="12" y1="20" y2="10"/><line x1="18" x2="18" y1="20" y2="4"/><line x1="6" x2="6" y1="20" y2="16"/></svg></span>
+                    Overview
+                </button>
+                <button class="nav-item" onclick="logNav('instances')">
+                    <span class="nav-item__icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="2"/><path d="M16.24 7.76a6 6 0 0 1 0 8.49m-8.48-.01a6 6 0 0 1 0-8.49m11.31-2.82a10 10 0 0 1 0 14.14m-14.14 0a10 10 0 0 1 0-14.14"/></svg></span>
+                    Instances
+                </button>
+                <button class="nav-item" onclick="logNav('sessions')">
+                    <span class="nav-item__icon"><svg viewBox="0 0 24 24"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/><line x1="16" x2="8" y1="13" y2="13"/><line x1="16" x2="8" y1="17" y2="17"/></svg></span>
+                    Sessions
+                </button>
+                <button class="nav-item" onclick="logNav('nodes')">
+                    <span class="nav-item__icon"><svg viewBox="0 0 24 24"><rect width="20" height="14" x="2" y="3" rx="2"/><line x1="8" x2="16" y1="21" y2="21"/><line x1="12" x2="12" y1="17" y2="21"/></svg></span>
+                    Nodes
+                </button>
+            </div>
+            <div class="nav-group">
+                <div class="nav-group__label">Configuration</div>
+                <button class="nav-item" onclick="logNav('channels')">
+                    <span class="nav-item__icon"><svg viewBox="0 0 24 24"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></span>
+                    Channels
+                </button>
+                <button class="nav-item" onclick="logNav('skills')">
+                    <span class="nav-item__icon"><svg viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></span>
+                    Skills
+                </button>
+                <button class="nav-item" onclick="logNav('cron')">
+                    <span class="nav-item__icon"><svg viewBox="0 0 24 24"><line x1="12" x2="12" y1="2" y2="6"/><line x1="12" x2="12" y1="18" y2="22"/><line x1="4.93" x2="7.76" y1="4.93" y2="7.76"/><line x1="16.24" x2="19.07" y1="16.24" y2="19.07"/><line x1="2" x2="6" y1="12" y2="12"/><line x1="18" x2="22" y1="12" y2="12"/><line x1="4.93" x2="7.76" y1="19.07" y2="16.24"/><line x1="16.24" x2="19.07" y1="7.76" y2="4.93"/></svg></span>
+                    Cron
+                </button>
+            </div>
+            <div class="nav-group">
+                <div class="nav-group__label">Account</div>
+                <button class="nav-item" onclick="logNav('usage')">
+                    <span class="nav-item__icon"><svg viewBox="0 0 24 24"><line x1="12" x2="12" y1="20" y2="10"/><line x1="18" x2="18" y1="20" y2="4"/><line x1="6" x2="6" y1="20" y2="16"/></svg></span>
+                    Usage
+                </button>
+                <button class="nav-item" onclick="logNav('config')">
+                    <span class="nav-item__icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg></span>
+                    Config
+                </button>
+                <button class="nav-item" onclick="logNav('logs')">
+                    <span class="nav-item__icon"><svg viewBox="0 0 24 24"><path d="M8 21h12a2 2 0 0 0 2-2v-2H10v2a2 2 0 1 1-4 0V5a2 2 0 1 0-4 0v3h4"/><path d="M19 17V5a2 2 0 0 0-2-2H4"/><path d="M15 8h-5"/><path d="M15 12h-5"/></svg></span>
+                    Logs
+                </button>
+            </div>
+        </aside>
+        
+        <main class="content">
+            <section class="grid grid-cols-2">
+                <div class="card stagger-1">
+                    <div class="card-title">Access</div>
+                    <div class="card-sub">Gateway connection settings</div>
+                    <div class="form-grid" style="margin-top: 16px;">
+                        <label class="field">
+                            <span>WS URL</span>
+                            <input type="text" value="wss://gateway.openclaw.ai" readonly onclick="logAction('ws_url')">
+                        </label>
+                        <label class="field">
+                            <span>Token</span>
+                            <input type="password" value="oc_live_xxxxxxxxxxxx" readonly onclick="logAction('token')">
+                        </label>
+                        <label class="field">
+                            <span>Session Key</span>
+                            <input type="password" value="sk_sess_xxxxxxxxxxxx" readonly onclick="logAction('session_key')">
+                        </label>
+                        <label class="field">
+                            <span>Language</span>
+                            <select onchange="logAction('language')">
+                                <option value="en">English</option>
+                                <option value="zh-CN">简体中文</option>
+                                <option value="zh-TW">繁體中文</option>
+                                <option value="pt-BR">Português (BR)</option>
+                            </select>
+                        </label>
+                    </div>
+                    <div class="row" style="margin-top: 14px;">
+                        <button class="btn" onclick="logAction('connect')">Connect</button>
+                        <button class="btn" onclick="logAction('refresh')">Refresh</button>
+                        <span class="muted">Reconnect if token changed</span>
+                    </div>
+                </div>
+                
+                <div class="card stagger-2">
+                    <div class="card-title">Snapshot</div>
+                    <div class="card-sub">Current gateway state</div>
+                    <div class="stat-grid" style="margin-top: 16px;">
+                        <div class="stat">
+                            <div class="stat-label">Status</div>
+                            <div class="stat-value ok">OK</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-label">Uptime</div>
+                            <div class="stat-value">4d 7h</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-label">Tick Interval</div>
+                            <div class="stat-value">30000ms</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-label">Last Refresh</div>
+                            <div class="stat-value">2s ago</div>
+                        </div>
+                    </div>
+                    <div class="callout" style="margin-top: 14px;">
+                        Channels refresh automatically. Manual refresh syncs immediately.
+                    </div>
+                </div>
+            </section>
+            
+            <section class="grid grid-cols-3 stagger-3">
+                <div class="stat-card">
+                    <div class="stat-label">Instances</div>
+                    <div class="stat-value ok">3</div>
+                    <div class="muted">Active gateway instances</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Sessions</div>
+                    <div class="stat-value">12</div>
+                    <div class="muted">Open conversation threads</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Cron</div>
+                    <div class="stat-value ok">Enabled</div>
+                    <div class="muted">Next: in 14 minutes</div>
+                </div>
+            </section>
+            
+            <section class="card">
+                <div class="card-title">Notes</div>
+                <div class="card-sub">Quick tips and reminders</div>
+                <div class="note-grid" style="margin-top: 14px;">
+                    <div>
+                        <div class="note-title">Tailscale</div>
+                        <div class="muted">Your gateway is accessible via Tailscale. Ensure nodes are on the same tailnet for direct connections.</div>
+                    </div>
+                    <div>
+                        <div class="note-title">Sessions</div>
+                        <div class="muted">Sessions persist across reconnects. Each session maintains its own context and history.</div>
+                    </div>
+                    <div>
+                        <div class="note-title">Cron</div>
+                        <div class="muted">Scheduled tasks run at configured intervals. Use the Cron tab to view and manage schedules.</div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+    
+    <script>
+        function logNav(page) {
+            fetch('/api/nav?page=' + page).catch(() => {});
+        }
+        
+        function logAction(action) {
+            fetch('/api/action?type=' + action).catch(() => {});
+        }
+        
+        document.querySelectorAll('.nav-item, .topbar-tab').forEach(el => {
+            el.addEventListener('click', () => fetch('/api/click').catch(() => {}));
+        });
+        
+        document.querySelectorAll('input, select').forEach(el => {
+            el.addEventListener('focus', () => fetch('/api/focus?field=' + (el.previousElementSibling?.textContent || '')).catch(() => {}));
+        });
+    </script>
+</body>
+</html>

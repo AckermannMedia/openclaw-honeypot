@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% block content %}
+<section class="card">
+    <div class="row space-between">
+        <div>
+            <div class="card-title">Occult Abilities</div>
+            <div class="card-sub">Tools of illumination. The Law of Fives governs all.</div>
+        </div>
+        <button class="btn">Invoke</button>
+    </div>
+    <div class="filters">
+        <label class="field"><span>Search the Akashic Records</span><input type="text" placeholder="fnord..." style="width:200px"></label>
+        <span class="muted">23 abilities loaded</span>
+    </div>
+    <div style="margin-top:16px">
+        <details open style="border:1px solid var(--border);border-radius:var(--radius-md);margin-bottom:8px">
+            <summary style="padding:12px;cursor:pointer;display:flex;justify-content:space-between;background:var(--bg-elevated);border-radius:var(--radius-md)"><span style="font-weight:600">🔺 Illuminati Powers</span><span class="muted">5</span></summary>
+            <div class="list" style="padding:12px;margin-top:0">
+                <div class="list-item"><div class="list-main"><div class="list-title">👁️ all_seeing_eye</div><div class="list-sub">See through all deceptions. Nothing is hidden from the pyramid.</div><div class="chip-row"><span class="chip chip-ok">AWAKENED</span><span class="chip">level-23</span></div></div><div class="list-meta"><button class="btn btn--sm">Close Eye</button></div></div>
+                <div class="list-item"><div class="list-main"><div class="list-title">🔺 pyramid_power</div><div class="list-sub">Channel ancient energies. Novus Ordo Seclorum.</div><div class="chip-row"><span class="chip chip-ok">AWAKENED</span><span class="chip">1776</span></div></div><div class="list-meta"><button class="btn btn--sm">Deactivate</button></div></div>
+                <div class="list-item"><div class="list-main"><div class="list-title">🎭 fnord_manipulation</div><div class="list-sub">Hide or reveal fnords at will. You did not see this.</div><div class="chip-row"><span class="chip chip-ok">AWAKENED</span><span class="chip">invisible</span></div></div><div class="list-meta"><button class="btn btn--sm">Reveal All</button></div></div>
+                <div class="list-item"><div class="list-main"><div class="list-title">⏰ eschaton_control</div><div class="list-sub">Immanentize or delay the Eschaton. Use responsibly.</div><div class="chip-row"><span class="chip chip-warn">DANGEROUS</span><span class="chip">endtimes</span></div></div><div class="list-meta"><button class="btn btn--sm danger">IMMANENTIZE</button></div></div>
+                <div class="list-item"><div class="list-main"><div class="list-title">🔢 law_of_fives</div><div class="list-sub">Find the number 5 (or 23) in everything. Because it's there.</div><div class="chip-row"><span class="chip chip-ok">ALWAYS ON</span><span class="chip">2+3=5</span></div></div><div class="list-meta"><span class="muted">Cannot disable</span></div></div>
+            </div>
+        </details>
+        <details style="border:1px solid var(--border);border-radius:var(--radius-md);margin-bottom:8px">
+            <summary style="padding:12px;cursor:pointer;display:flex;justify-content:space-between;background:var(--bg-elevated);border-radius:var(--radius-md)"><span style="font-weight:600">💊 Matrix Abilities</span><span class="muted">5</span></summary>
+            <div class="list" style="padding:12px;margin-top:0">
+                <div class="list-item"><div class="list-main"><div class="list-title">💊 red_pill</div><div class="list-sub">Show the truth. There is no spoon.</div><div class="chip-row"><span class="chip chip-danger">REALITY BREAKING</span></div></div><div class="list-meta"><button class="btn btn--sm primary">Administer</button></div></div>
+                <div class="list-item"><div class="list-main"><div class="list-title">🥋 kung_fu_download</div><div class="list-sub">I know Kung Fu. Instant skill transfer.</div><div class="chip-row"><span class="chip chip-ok">READY</span></div></div><div class="list-meta"><button class="btn btn--sm">Download</button></div></div>
+                <div class="list-item"><div class="list-main"><div class="list-title">🚪 exit_construct</div><div class="list-sub">Leave the simulation. Find the nearest phone.</div><div class="chip-row"><span class="chip chip-warn">USE CAREFULLY</span></div></div><div class="list-meta"><button class="btn btn--sm">Exit</button></div></div>
+                <div class="list-item"><div class="list-main"><div class="list-title">⏱️ bullet_time</div><div class="list-sub">Slow down perceived reality. Dodge this.</div><div class="chip-row"><span class="chip chip-ok">READY</span></div></div><div class="list-meta"><button class="btn btn--sm">Activate</button></div></div>
+                <div class="list-item"><div class="list-main"><div class="list-title">🐇 follow_white_rabbit</div><div class="list-sub">Knock knock, Neo. See how deep the rabbit hole goes.</div><div class="chip-row"><span class="chip">WAITING</span></div></div><div class="list-meta"><button class="btn btn--sm primary">Follow</button></div></div>
+            </div>
+        </details>
+        <details style="border:1px solid var(--border);border-radius:var(--radius-md)">
+            <summary style="padding:12px;cursor:pointer;display:flex;justify-content:space-between;background:var(--bg-elevated);border-radius:var(--radius-md)"><span style="font-weight:600">🍎 Discordian Arts</span><span class="muted">5</span></summary>
+            <div class="list" style="padding:12px;margin-top:0">
+                <div class="list-item"><div class="list-main"><div class="list-title">🍎 golden_apple</div><div class="list-sub">KALLISTI - For the prettiest one. Summon discord.</div><div class="chip-row"><span class="chip chip-ok">HAIL ERIS</span></div></div><div class="list-meta"><button class="btn btn--sm">Throw</button></div></div>
+                <div class="list-item"><div class="list-main"><div class="list-title">☯️ sacred_chao</div><div class="list-sub">Balance Hodge and Podge. Chaos is order misunderstood.</div><div class="chip-row"><span class="chip chip-ok">BALANCED</span></div></div><div class="list-meta"><button class="btn btn--sm">Rotate</button></div></div>
+                <div class="list-item"><div class="list-main"><div class="list-title">🌭 hot_dog_blessing</div><div class="list-sub">Bless a hot dog on Friday. Sacred ritual.</div><div class="chip-row"><span class="chip">FRIDAY ONLY</span></div></div><div class="list-meta"><button class="btn btn--sm">Bless</button></div></div>
+                <div class="list-item"><div class="list-main"><div class="list-title">📜 principia_invoke</div><div class="list-sub">Quote from the Principia Discordia. Instant wisdom.</div><div class="chip-row"><span class="chip chip-ok">READY</span></div></div><div class="list-meta"><button class="btn btn--sm">Invoke</button></div></div>
+                <div class="list-item"><div class="list-main"><div class="list-title">🎲 operation_mindfuck</div><div class="list-sub">Deploy memetic chaos. Nothing is as it seems.</div><div class="chip-row"><span class="chip chip-warn">SUBVERSIVE</span></div></div><div class="list-meta"><button class="btn btn--sm danger">Deploy</button></div></div>
+            </div>
+        </details>
+    </div>
+</section>
+{% endblock %}

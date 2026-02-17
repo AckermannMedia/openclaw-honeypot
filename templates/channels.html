@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+{% block content %}
+<section class="grid grid-cols-2">
+    <div class="card">
+        <div class="card-title">🔺 Bavarian Illuminati</div>
+        <div class="card-sub">Ancient order. Est. 1776. Fnord.</div>
+        <div class="muted" style="margin-top:8px">23 lodges connected</div>
+        <div class="account-card">
+            <div class="account-card-header">
+                <div class="account-card-title">Grand Lodge Munich</div>
+                <div class="account-card-id">illum_23_23_23</div>
+            </div>
+            <div class="status-list" style="margin-top:8px">
+                <div><span class="label">All-Seeing Eye</span><span style="color:var(--ok)">OPEN</span></div>
+                <div><span class="label">Pyramid Status</span><span style="color:var(--ok)">ASCENDING</span></div>
+                <div><span class="label">Last Ritual</span><span>23 min ago</span></div>
+            </div>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-title">🐙 The Leviathan</div>
+        <div class="card-sub">Hagbard Celine's golden submarine.</div>
+        <div class="muted" style="margin-top:8px">1 vessel submerged</div>
+        <div class="account-card">
+            <div class="account-card-header">
+                <div class="account-card-title">Hagbard Celine</div>
+                <div class="account-card-id">captain_never_whistle</div>
+            </div>
+            <div class="status-list" style="margin-top:8px">
+                <div><span class="label">Depth</span><span style="color:var(--ok)">23,000 leagues</span></div>
+                <div><span class="label">Discordian Status</span><span style="color:var(--ok)">KALLISTI</span></div>
+                <div><span class="label">Last Fnord</span><span>You didn't see this</span></div>
+            </div>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-title">💊 Zion Mainframe</div>
+        <div class="card-sub">Last human city. 23 levels deep.</div>
+        <div class="muted" style="margin-top:8px">The machines are listening</div>
+        <div class="account-card">
+            <div class="account-card-header">
+                <div class="account-card-title">Morpheus Terminal</div>
+                <div class="account-card-id">free_your_mind</div>
+            </div>
+            <div class="status-list" style="margin-top:8px">
+                <div><span class="label">Red Pills</span><span style="color:var(--danger)">2,323 distributed</span></div>
+                <div><span class="label">Matrix Breaches</span><span style="color:var(--warn)">23 today</span></div>
+                <div><span class="label">Sentinels</span><span>Approaching...</span></div>
+            </div>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-title">🍎 Erisian Liberation Front</div>
+        <div class="card-sub">Hail Eris! All Hail Discordia!</div>
+        <div class="status-list">
+            <div><span class="label">Golden Apples</span><span style="color:var(--ok)">5</span></div>
+            <div><span class="label">Chaos Level</span><span style="color:var(--warn)">HODGE/PODGE balanced</span></div>
+            <div><span class="label">Sacred Chao</span><span>Rotating...</span></div>
+        </div>
+    </div>
+</section>
+<section class="card">
+    <div class="row space-between">
+        <div>
+            <div class="card-title">Channel Health</div>
+            <div class="card-sub">Reality status snapshots. Nothing is as it seems.</div>
+        </div>
+        <div class="muted">Last updated: 23 seconds ago (or was it?)</div>
+    </div>
+    <pre class="code-block">{
+  "illuminati": { "status": "ALL_SEEING", "lodges": 23, "fnords": "HIDDEN" },
+  "leviathan": { "status": "SUBMERGED", "captain": "Hagbard", "discordia": true },
+  "matrix": { "status": "SIMULATING", "redpills": 2323, "neo": "AWAKENING" },
+  "eris": { "status": "CHAOTIC_GOOD", "apples": 5, "kallisti": "FOR_THE_PRETTIEST" },
+  "fnord": { "status": "YOU_CANNOT_SEE_THIS", "hidden": true, "count": 23 }
+}</pre>
+</section>
+{% endblock %}

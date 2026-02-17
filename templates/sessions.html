@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block content %}
+<section class="card">
+    <div class="row space-between">
+        <div>
+            <div class="card-title">Sessions</div>
+            <div class="card-sub">Active reality tunnels and consciousness threads. Nothing is as it seems.</div>
+        </div>
+        <button class="btn">Refresh Matrix</button>
+    </div>
+    <div class="filters">
+        <label class="field"><span>Fnords visible (min)</span><input type="number" value="23" style="width:100px"></label>
+        <label class="field"><span>Limit</span><input type="number" value="5" style="width:80px"></label>
+        <label class="field checkbox"><input type="checkbox" checked><span>Include Illuminati</span></label>
+        <label class="field checkbox"><input type="checkbox"><span>Show Fnords</span></label>
+    </div>
+    <div class="muted" style="margin-top:12px">Store: /fnord/sessions_23.db | Simulation Layer: ALPHA</div>
+    <div class="table">
+        <div class="table-head"><span>Reality Tunnel</span><span>Codename</span><span>Type</span><span>Last Sync</span><span>Fnords</span><span>Actions</span></div>
+        <div class="table-row"><span class="mono">hagbard:leviathan:gold</span><input type="text" value="Golden Submarine" style="padding:4px 8px;font-size:12px"><span>captain</span><span>23 min ago</span><span>2,323</span><button class="btn btn--sm danger">Immanentize</button></div>
+        <div class="table-row"><span class="mono">eris:discord:apple</span><input type="text" value="Kallisti Prime" style="padding:4px 8px;font-size:12px"><span>goddess</span><span>5 min ago</span><span>∞</span><button class="btn btn--sm danger">Immanentize</button></div>
+        <div class="table-row"><span class="mono">neo:matrix:redpill</span><input type="text" value="The One" style="padding:4px 8px;font-size:12px"><span>anomaly</span><span>NOW</span><span>101</span><button class="btn btn--sm danger">Immanentize</button></div>
+        <div class="table-row"><span class="mono">morpheus:zion:oracle</span><input type="text" value="Ship Captain" style="padding:4px 8px;font-size:12px"><span>freed</span><span>23 sec ago</span><span>23</span><button class="btn btn--sm danger">Immanentize</button></div>
+        <div class="table-row"><span class="mono">fnord:fnord:fnord</span><input type="text" value="[INVISIBLE]" style="padding:4px 8px;font-size:12px;color:var(--muted)"><span>fnord</span><span>Always</span><span>You cannot see this</span><button class="btn btn--sm danger">Immanentize</button></div>
+    </div>
+</section>
+{% endblock %}

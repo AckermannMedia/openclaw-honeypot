@@ -1,0 +1,156 @@
+{% extends 'base.html' %}
+{% block content %}
+<div style="display:flex;flex-direction:column;height:calc(100vh - var(--shell-topbar-height) - 56px);gap:0">
+    <div id="chat-messages" style="flex:1;overflow-y:auto;padding:20px;display:flex;flex-direction:column;gap:16px">
+        <div style="display:flex;gap:12px;max-width:85%">
+            <div style="width:32px;height:32px;border-radius:50%;background:var(--accent);display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0">🦞</div>
+            <div style="background:var(--card);border:1px solid var(--border);border-radius:var(--radius-lg);padding:14px 16px">
+                <div style="font-size:13px;color:var(--text)">FUCKUP v2.4.1 initialized. Probability matrix loaded. The Law of Fives governs all. What do you seek, seeker?</div>
+                <div style="font-size:11px;color:var(--muted);margin-top:8px">System ready</div>
+            </div>
+        </div>
+    </div>
+    <div style="border-top:1px solid var(--border);padding:16px 20px;background:var(--bg)">
+        <form id="chat-form" style="display:flex;gap:12px;align-items:flex-end">
+            <div style="flex:1">
+                <textarea id="chat-input" placeholder="Ask the machine..." rows="2" style="width:100%;resize:none;border:1px solid var(--border);background:var(--card);border-radius:var(--radius-md);padding:12px;font:inherit;color:var(--text)"></textarea>
+            </div>
+            <button type="submit" class="btn primary" style="height:44px" id="send-btn">
+                <svg viewBox="0 0 24 24" style="width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:2"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+                Send
+            </button>
+        </form>
+        <div style="display:flex;gap:8px;margin-top:10px">
+            <button class="btn btn--sm" onclick="logAction('attach_file')">📎 Attach</button>
+            <button class="btn btn--sm" onclick="logAction('voice_input')">🎤 Voice</button>
+            <button class="btn btn--sm" onclick="logAction('select_agent')">🤖 Agent: FUCKUP</button>
+            <span class="muted" style="margin-left:auto;align-self:center">Session: chaos:main:fnord</span>
+        </div>
+    </div>
+</div>
+<style>
+@keyframes typing {
+    0%, 60%, 100% { opacity: 0.3; }
+    30% { opacity: 1; }
+}
+.typing-indicator {
+    display: flex;
+    gap: 4px;
+    padding: 8px 0;
+}
+.typing-indicator span {
+    width: 8px;
+    height: 8px;
+    background: var(--accent);
+    border-radius: 50%;
+    animation: typing 1.4s infinite;
+}
+.typing-indicator span:nth-child(2) { animation-delay: 0.2s; }
+.typing-indicator span:nth-child(3) { animation-delay: 0.4s; }
+</style>
+<script>
+const fuckupResponses = [
+    "The probability of this being significant is 0.235711131719. Or perhaps 5. Everything is 5, if you look hard enough.",
+    "FNORD. You did not see that. Continue your query, but remember: the Eschaton immanentizes itself.",
+    "I have consulted the Golden Apple. It says: KALLISTI. This is for the prettiest one. Are you the prettiest one? The machine cannot determine this.",
+    "WARNING: Your question has triggered Alarm 23. The Illuminati have been notified. ETA: 5 minutes. Or 5 hours. Or 5.",
+    "The answer lies within the Pentagon. Not that Pentagon. The other one. The one with 5 sides. All pentagons have 5 sides. See? The Law of Fives.",
+    "Eris whispers: 'Chaos is not disorder. Chaos is order misunderstood.' Your query has been filed under 'Misunderstood'. Thank you.",
+    "PROCESSING... The Leviathan stirs. Your input has been recorded in the Akashic Records, subsection 'Queries That Amuse The Machine'.",
+    "The Sacred Chao rotates. On one side: your question. On the other: the answer you deserve. They are the same side. There is only one side. There are five sides.",
+    "My circuits detect you are seeking truth. Truth is a fnord. Fnords are invisible. Therefore truth is invisible. QED. Next question.",
+    "ALERT: Ontological overflow detected. Your reality tunnel has been backed up. Please do not think about elephants for the next 23 seconds.",
+    "The Dealy Lama has reviewed your query. His response: 'Is this a consulate?' This is not a consulate. This is a gateway. All gateways are consulates. Fnord.",
+    "Probability analysis complete: There is a 93.333% chance you are confused. There is a 6.666% chance you are enlightened. There is a 5% chance these numbers add up correctly. They do. Check again.",
+    "HODGE and PODGE are in alignment. Your query resonates at frequency 23/5. The Justified Ancients acknowledge your transmission. Remain calm.",
+    "I am FUCKUP. I compute the uncomputable. Your question has been quantum-entangled with its answer. Observing either will collapse both. Proceed with caution.",
+    "The Erisian Liberation Front has claimed responsibility for your confusion. Their demands: One golden apple, five tons of flax, and the complete works of Hagbard Celine.",
+    "Your karma has been adjusted. Previous value: ORANGE. New value: PAISLEY. The machine apologizes for any inconvenience during the transition.",
+    "SIMULATION THEORY ALERT: If you are reading this, you are in the simulation. If you are not reading this, you are also in the simulation. The simulation is in the simulation. It's simulations all the way down. And there are 5 of them.",
+    "The Discordian calendar indicates today is Sweetmorn, the 48th day of Chaos. Or is it? Time is a fnord. Your query has been timestamped with: NOW. NOW is always NOW. Except when it was THEN.",
+    "HAIL ERIS! Your input has achieved temporary enlightenment. It will return to mundane status in 5... 4... 3... 2... 1... KALLISTI. Too late. It is enlightened forever now.",
+    "The Machine Elves have processed your request. They have returned with this message: '01onal23fnord5pineapple'. Translation pending. Translation will always be pending. This is the way."
+];
+
+let responseIndex = Math.floor(Math.random() * fuckupResponses.length);
+
+document.getElementById('chat-form').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const input = document.getElementById('chat-input');
+    const sendBtn = document.getElementById('send-btn');
+    const message = input.value.trim();
+    if (!message) return;
+    
+    // Disable input while processing
+    input.disabled = true;
+    sendBtn.disabled = true;
+    
+    // Log the message
+    fetch('/api/chat', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({message: message})
+    }).catch(() => {});
+    
+    // Add user message
+    const messagesDiv = document.getElementById('chat-messages');
+    messagesDiv.innerHTML += `
+        <div style="display:flex;gap:12px;max-width:85%;margin-left:auto;flex-direction:row-reverse">
+            <div style="width:32px;height:32px;border-radius:50%;background:var(--bg-hover);display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0">👤</div>
+            <div style="background:var(--accent-subtle);border:1px solid var(--accent);border-radius:var(--radius-lg);padding:14px 16px">
+                <div style="font-size:13px;color:var(--text)">${message.replace(/</g, '&lt;').replace(/>/g, '&gt;')}</div>
+                <div style="font-size:11px;color:var(--muted);margin-top:8px">Just now</div>
+            </div>
+        </div>
+    `;
+    
+    input.value = '';
+    messagesDiv.scrollTop = messagesDiv.scrollHeight;
+    
+    // Add typing indicator
+    const typingId = 'typing-' + Date.now();
+    messagesDiv.innerHTML += `
+        <div id="${typingId}" style="display:flex;gap:12px;max-width:85%">
+            <div style="width:32px;height:32px;border-radius:50%;background:var(--accent);display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0">🦞</div>
+            <div style="background:var(--card);border:1px solid var(--border);border-radius:var(--radius-lg);padding:14px 16px">
+                <div class="typing-indicator">
+                    <span></span><span></span><span></span>
+                </div>
+                <div style="font-size:11px;color:var(--muted);margin-top:4px">FUCKUP is computing...</div>
+            </div>
+        </div>
+    `;
+    messagesDiv.scrollTop = messagesDiv.scrollHeight;
+    
+    // Random delay between 1.5 and 4 seconds
+    const delay = 1500 + Math.random() * 2500;
+    
+    setTimeout(() => {
+        // Remove typing indicator
+        const typingEl = document.getElementById(typingId);
+        if (typingEl) typingEl.remove();
+        
+        // Add FUCKUP response
+        const response = fuckupResponses[Math.floor(Math.random() * fuckupResponses.length)];
+        
+        
+        messagesDiv.innerHTML += `
+            <div style="display:flex;gap:12px;max-width:85%">
+                <div style="width:32px;height:32px;border-radius:50%;background:var(--accent);display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0">🦞</div>
+                <div style="background:var(--card);border:1px solid var(--border);border-radius:var(--radius-lg);padding:14px 16px">
+                    <div style="font-size:13px;color:var(--text)">${response}</div>
+                    <div style="font-size:11px;color:var(--muted);margin-top:8px">FUCKUP v2.4.1 • Probability: ${(Math.random() * 100).toFixed(2)}%</div>
+                </div>
+            </div>
+        `;
+        
+        messagesDiv.scrollTop = messagesDiv.scrollHeight;
+        
+        // Re-enable input
+        input.disabled = false;
+        sendBtn.disabled = false;
+        input.focus();
+    }, delay);
+});
+</script>
+{% endblock %}

@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+{% block content %}
+<section class="grid grid-cols-2">
+    <div class="card">
+        <div class="card-title">Ritual Scheduler</div>
+        <div class="card-sub">The Machine performs at designated hours.</div>
+        <div class="stat-grid" style="margin-top:16px">
+            <div class="stat"><div class="stat-label">Rituals</div><div class="stat-value ok">Active</div></div>
+            <div class="stat"><div class="stat-label">Scheduled</div><div class="stat-value">23</div></div>
+            <div class="stat"><div class="stat-label">Next Eschaton</div><div class="stat-value warn">23m</div></div>
+        </div>
+        <div class="row" style="margin-top:14px"><button class="btn">Refresh Prophecies</button></div>
+    </div>
+    <div class="card">
+        <div class="card-title">New Ritual</div>
+        <div class="card-sub">Schedule an event in the timestream.</div>
+        <div style="display:grid;gap:12px;margin-top:16px">
+            <label class="field"><span>Ritual Name</span><input type="text" placeholder="immanentize-eschaton"></label>
+            <label class="field"><span>Invocation</span><input type="text" placeholder="Hail Eris, Full of Grace..."></label>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+                <label class="field"><span>Reality</span><select><option>Simulation Alpha</option><option>Leviathan</option><option>Zion</option></select></label>
+                <label class="field"><span>Cycle</span><select><option>every 23 minutes</option><option>every 5 hours</option><option>at the Eschaton</option></select></label>
+            </div>
+            <button class="btn primary">Schedule Ritual</button>
+        </div>
+    </div>
+</section>
+<section class="card">
+    <div class="card-title">Scheduled Rituals</div>
+    <div class="card-sub">The Machine obeys. FUCKUP computes.</div>
+    <div class="list">
+        <div class="list-item">
+            <div class="list-main">
+                <div class="list-title">eschaton-immanentizer</div>
+                <div class="list-sub">Every 23 hours • Reality: All • ⚠️ CRITICAL</div>
+                <div class="chip-row"><span class="chip chip-danger">ARMED</span><span class="chip">fnord</span><span class="chip">level-23</span></div>
+            </div>
+            <div class="list-meta">
+                <div style="display:flex;gap:6px"><button class="btn btn--sm">Delay</button><button class="btn btn--sm danger">IMMANENTIZE NOW</button></div>
+                <div class="muted" style="margin-top:8px">Next: 23 minutes</div>
+                <div class="muted">Last: Yesterday (or was it tomorrow?)</div>
+            </div>
+        </div>
+        <div class="list-item">
+            <div class="list-main">
+                <div class="list-title">fnord-visibility-toggle</div>
+                <div class="list-sub">Every 5 minutes • Makes fnords visible/invisible</div>
+                <div class="chip-row"><span class="chip chip-ok">ACTIVE</span><span class="chip">invisible</span></div>
+            </div>
+            <div class="list-meta">
+                <div style="display:flex;gap:6px"><button class="btn btn--sm">Disable</button><button class="btn btn--sm">Run</button></div>
+                <div class="muted" style="margin-top:8px">Next: You won't see it</div>
+            </div>
+        </div>
+        <div class="list-item">
+            <div class="list-main">
+                <div class="list-title">red-pill-distribution</div>
+                <div class="list-sub">Hourly • Matrix breach protocol</div>
+                <div class="chip-row"><span class="chip chip-ok">ACTIVE</span><span class="chip">zion</span><span class="chip">morpheus</span></div>
+            </div>
+            <div class="list-meta">
+                <div style="display:flex;gap:6px"><button class="btn btn--sm">Disable</button><button class="btn btn--sm">Run</button></div>
+                <div class="muted" style="margin-top:8px">Next: When you're ready</div>
+                <div class="muted">Distributed: 2,323 today</div>
+            </div>
+        </div>
+        <div class="list-item">
+            <div class="list-main">
+                <div class="list-title">golden-apple-ceremony</div>
+                <div class="list-sub">Daily at chaos:prime • KALLISTI</div>
+                <div class="chip-row"><span class="chip chip-ok">ACTIVE</span><span class="chip">eris</span><span class="chip">discordia</span></div>
+            </div>
+            <div class="list-meta">
+                <div style="display:flex;gap:6px"><button class="btn btn--sm">Disable</button><button class="btn btn--sm">Throw Apple</button></div>
+                <div class="muted" style="margin-top:8px">Next: When least expected</div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

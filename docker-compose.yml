@@ -1,0 +1,24 @@
+services:
+  openclaw-honeypot:
+    build: .
+    container_name: openclaw-honeypot
+    restart: unless-stopped
+    ports:
+      - "18789:18789"
+    volumes:
+      - ./logs:/app/logs
+    environment:
+      - TZ=Europe/Berlin
+    # Security Hardening
+    read_only: true
+    tmpfs:
+      - /tmp:size=10M
+    security_opt:
+      - no-new-privileges:true
+    deploy:
+      resources:
+        limits:
+          memory: 256M
+          cpus: '0.5'
+    labels:
+      - "com.centurylinklabs.watchtower.enable=false"

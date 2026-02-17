@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% block content %}
+<section class="card">
+    <div class="row space-between">
+        <div>
+            <div class="card-title">Akashic Records</div>
+            <div class="card-sub">All that was, is, and will be. Nothing is as it seems.</div>
+        </div>
+        <div class="row">
+            <button class="btn">Refresh Timeline</button>
+            <button class="btn">Export to Pyramid</button>
+        </div>
+    </div>
+    <div class="filters">
+        <label class="field"><span>Search</span><input type="text" placeholder="fnord..." style="width:200px"></label>
+        <label class="field checkbox"><input type="checkbox" checked><span>Follow the white rabbit</span></label>
+    </div>
+    <div class="chip-row" style="margin-top:12px">
+        <label class="chip" style="cursor:pointer"><span style="opacity:0.5">whisper</span></label>
+        <label class="chip" style="cursor:pointer"><span style="opacity:0.5">fnord</span></label>
+        <label class="chip chip-ok" style="cursor:pointer"><span>revelation</span></label>
+        <label class="chip chip-warn" style="cursor:pointer"><span>omen</span></label>
+        <label class="chip chip-danger" style="cursor:pointer"><span>eschaton</span></label>
+        <label class="chip" style="cursor:pointer;background:var(--danger);color:#fff"><span>IMMANENT</span></label>
+    </div>
+    <div class="muted" style="margin-top:12px">Records: /fnord/akashic_23.log | Reality Layer: ALPHA-23</div>
+    <div class="log-stream">
+        <div class="log-row"><span class="log-time">23:23:23</span><span class="log-level info">rvltn</span><span class="log-subsystem">pyramid</span><span class="log-message">The All-Seeing Eye has opened. 23 new initiates detected.</span></div>
+        <div class="log-row"><span class="log-time">23:23:05</span><span class="log-level warn">omen</span><span class="log-subsystem">eschaton</span><span class="log-message">WARNING: Eschaton immanentization at 85%. Recommend delay.</span></div>
+        <div class="log-row"><span class="log-time">23:22:55</span><span class="log-level info">rvltn</span><span class="log-subsystem">matrix</span><span class="log-message">Red pill administered to consciousness_7842. Welcome to the real.</span></div>
+        <div class="log-row"><span class="log-time">23:22:32</span><span class="log-level info">rvltn</span><span class="log-subsystem">fnord</span><span class="log-message">Fnord deployment successful. You did not see this log entry.</span></div>
+        <div class="log-row"><span class="log-time">23:22:17</span><span class="log-level error">esctn</span><span class="log-subsystem">chaos</span><span class="log-message">CRITICAL: Sacred Chao imbalance detected. Hodge exceeds Podge.</span></div>
+        <div class="log-row"><span class="log-time">23:22:05</span><span class="log-level info">rvltn</span><span class="log-subsystem">eris</span><span class="log-message">Golden Apple ceremony completed. KALLISTI.</span></div>
+        <div class="log-row"><span class="log-time">23:21:50</span><span class="log-level info">rvltn</span><span class="log-subsystem">leviathan</span><span class="log-message">Captain Hagbard reports: Never whistle while you're pissing.</span></div>
+        <div class="log-row"><span class="log-time">23:21:23</span><span class="log-level warn">omen</span><span class="log-subsystem">matrix</span><span class="log-message">Déjà vu event detected in sector 7. Possible glitch or agent activity.</span></div>
+        <div class="log-row"><span class="log-time">23:21:05</span><span class="log-level info">rvltn</span><span class="log-subsystem">fuckup</span><span class="log-message">FUCKUP probability matrix updated. Law of Fives confirmed: 2+3=5.</span></div>
+        <div class="log-row"><span class="log-time">23:20:55</span><span class="log-level info">rvltn</span><span class="log-subsystem">neo</span><span class="log-message">The One is beginning to believe. Anomaly readings nominal.</span></div>
+        <div class="log-row"><span class="log-time">23:20:23</span><span class="log-level error">esctn</span><span class="log-subsystem">morpheus</span><span class="log-message">Sentinels detected. Recommend immediate exit from construct.</span></div>
+        <div class="log-row"><span class="log-time">23:20:05</span><span class="log-level info">rvltn</span><span class="log-subsystem">discordia</span><span class="log-message">Operation Mindfuck phase 23 initiated. All is as it should not be.</span></div>
+        <div class="log-row"><span class="log-time">23:19:55</span><span class="log-level warn">omen</span><span class="log-subsystem">illuminati</span><span class="log-message">Novus Ordo Seclorum maintenance scheduled. Expect brief reality flickers.</span></div>
+        <div class="log-row"><span class="log-time">23:19:23</span><span class="log-level info">fnord</span><span class="log-subsystem">fnord</span><span class="log-message">fnord fnord fnord fnord fnord (you cannot read this)</span></div>
+    </div>
+</section>
+{% endblock %}

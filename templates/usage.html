@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+{% block content %}
+<section class="card">
+    <div class="row space-between">
+        <div>
+            <div class="card-title">Reality Consumption</div>
+            <div class="card-sub">How much simulation energy you've used. The Machine keeps count.</div>
+        </div>
+        <div class="row">
+            <span class="chip">23.23M fnords</span>
+            <span class="chip">$2,323.23</span>
+            <span class="chip">∞ realities</span>
+        </div>
+    </div>
+    <div class="filters">
+        <button class="btn btn--sm">Today</button>
+        <button class="btn btn--sm" style="background:var(--accent-subtle);border-color:var(--accent)">23 days</button>
+        <button class="btn btn--sm">Since 1776</button>
+        <label class="field" style="flex-direction:row;align-items:center;gap:8px"><span>From</span><input type="date" value="1776-05-01" style="padding:6px 10px"></label>
+        <label class="field" style="flex-direction:row;align-items:center;gap:8px"><span>To</span><input type="date" value="2023-02-23" style="padding:6px 10px"></label>
+        <button class="btn primary">Recalculate Reality</button>
+    </div>
+</section>
+<section class="grid grid-cols-3">
+    <div class="card" style="text-align:center">
+        <div class="stat-label">Fnords Processed</div>
+        <div class="stat-value">23.23M</div>
+        <div class="muted">You saw none of them</div>
+    </div>
+    <div class="card" style="text-align:center">
+        <div class="stat-label">Reality Alterations</div>
+        <div class="stat-value danger">2,323</div>
+        <div class="muted">Nothing is as it seems</div>
+    </div>
+    <div class="card" style="text-align:center">
+        <div class="stat-label">Simulation Cost</div>
+        <div class="stat-value">$23.23</div>
+        <div class="muted">Per consciousness/hour</div>
+    </div>
+</section>
+<section class="grid grid-cols-2">
+    <div class="card">
+        <div class="card-title">Daily Fnord Activity</div>
+        <div class="card-sub">Invisible word tracking.</div>
+        <div style="height:200px;display:flex;align-items:flex-end;gap:4px;margin-top:16px;padding:0 10px">
+            <div style="flex:1;background:var(--accent);border-radius:4px 4px 0 0;height:23%"></div>
+            <div style="flex:1;background:var(--accent);border-radius:4px 4px 0 0;height:55%"></div>
+            <div style="flex:1;background:var(--accent);border-radius:4px 4px 0 0;height:23%"></div>
+            <div style="flex:1;background:var(--accent);border-radius:4px 4px 0 0;height:100%"></div>
+            <div style="flex:1;background:var(--accent);border-radius:4px 4px 0 0;height:23%"></div>
+            <div style="flex:1;background:var(--accent);border-radius:4px 4px 0 0;height:77%"></div>
+            <div style="flex:1;background:var(--accent);border-radius:4px 4px 0 0;height:23%"></div>
+        </div>
+        <div style="display:flex;justify-content:space-between;padding:8px 10px 0;font-size:11px;color:var(--muted)"><span>Day 1</span><span>Day 5</span><span>Day 11</span><span>Day 17</span><span>Day 23</span><span>Day 28</span><span>Now</span></div>
+    </div>
+    <div class="card">
+        <div class="card-title">Reality Breakdown</div>
+        <div class="card-sub">Cost per simulation layer.</div>
+        <div class="list" style="margin-top:12px">
+            <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border)"><span>🔺 Illuminati Operations</span><span>$1,776.00</span></div>
+            <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border)"><span>💊 Matrix Maintenance</span><span>$323.23</span></div>
+            <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border)"><span>🍎 Discordian Chaos</span><span>$123.45</span></div>
+            <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border)"><span>🐙 Leviathan Fuel</span><span>$55.55</span></div>
+            <div style="display:flex;justify-content:space-between;padding:8px 0"><span>👁️ Fnord Processing</span><span>$23.00</span></div>
+        </div>
+    </div>
+</section>
+<section class="card">
+    <div class="card-title">Active Reality Tunnels</div>
+    <div class="card-sub">Recent consciousness threads.</div>
+    <div class="table">
+        <div class="table-head"><span>Tunnel ID</span><span>Agent</span><span>Fnords</span><span>Cost</span><span>Duration</span><span>Status</span></div>
+        <div class="table-row"><span class="mono">tunnel_23_fnord</span><span>Hagbard Celine</span><span>23,232</span><span>$23.23</span><span>23m</span><span class="chip chip-ok">ILLUMINATED</span></div>
+        <div class="table-row"><span class="mono">tunnel_eris_chaos</span><span>Discordian Pope</span><span>5,555</span><span>$5.55</span><span>∞</span><span class="chip chip-ok">CHAOTIC</span></div>
+        <div class="table-row"><span class="mono">tunnel_neo_awaken</span><span>The One</span><span>101,010</span><span>$101.01</span><span>1 lifetime</span><span class="chip chip-warn">AWAKENING</span></div>
+        <div class="table-row"><span class="mono">tunnel_fnord_hidden</span><span>[REDACTED]</span><span>You can't see this</span><span>$?.??</span><span>???</span><span class="chip">INVISIBLE</span></div>
+    </div>
+</section>
+{% endblock %}
